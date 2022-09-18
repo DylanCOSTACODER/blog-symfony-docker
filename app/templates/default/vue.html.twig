@@ -7,7 +7,9 @@
 {% block body %}
 	<p>Article numéro
 		{{ article.id }}</p>
-	<a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-info">Editer</a>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-info">Editer</a>
+	{% endif %}
 	<p>{{ article.dateCreation|date }}</p>
 	<p>
 		{{ article.contenu }}
