@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles
+{% endblock %}
+
+{% block body %}
+<h1>Articles
+	{% if brouillon %}
+		Brouillons
+	{% endif %}! ✅</h1>
+<ul>
+	{% for article in articles %}
+		<li>
+			<a href="{{ path('vue_article', { 'id':article.id }) }}">{{ article.titre }}</a>
+		</li>
+	</a>
+</li>{% endfor %}</ul>{% endblock %}

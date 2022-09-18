@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article numéro
+	{{article.titre}}
+{% endblock %}
+
+{% block body %}
+	<p>Article numéro
+		{{ article.id }}</p>
+	<a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-info">Editer</a>
+	<p>{{ article.dateCreation|date }}</p>
+	<p>
+		{{ article.contenu }}
+	</p>
+	<h2>
+		Commentaires
+	</h2>
+	<div class="row">
+		{%for comment in article.comments %}
+			<div class="col-md-12">
+				<p>{{ comment.dateComment|date }}</p>
+				<p>{{ comment.author }}</p>
+				<p>{{ comment.contenu }}</p>
+			</div>
+		{% endfor %}
+
+		{% for label, messages in app.flashes(['warning', 'danger']) %}
+			{% for message in messages %}
+				<div class="alert alert-{{ label }}">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		{{ form_start(form) }}
+		{{ form_label(form.contenu, null, { 'label_attr': {'class': 'form-label'}}) }}
+		{{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+		{{ form_label(form.author, null, { 'label_attr': {'class': 'form-label'}}) }}
+		{{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+		<div class="form-checkbox">
+			{{ form_widget(form.condition, {'attr': {'class': 'form-check-input'}}) }}
+			{{ form_label(form.condition, null, { 'label_attr': {'class': 'form-check-label'}}) }}
+		</div>
+		{{ form_rest(form) }}
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
